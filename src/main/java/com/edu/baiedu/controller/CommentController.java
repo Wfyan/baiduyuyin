@@ -2,6 +2,9 @@ package com.edu.baiedu.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.aip.speech.TtsResponse;
+import com.edu.baiedu.dao.PbComment;
+import com.edu.baiedu.dao.PbCommentPraise;
+import com.edu.baiedu.dao.PbPostPraise;
 import com.edu.baiedu.model.*;
 import com.edu.baiedu.service.CommentService;
 import com.edu.baiedu.service.PostService;
@@ -82,12 +85,12 @@ public class CommentController extends BasicController{
 			String userUUID=(String) session.getAttribute("id");
 			String cmUUID=this.getUUID();
 			String cmTime=this.getStringDate(new Date());
-			CommentDto commentDto=new CommentDto();
-			commentDto.setCmText(cmText);
-			commentDto.setCmTime(cmTime);
-			commentDto.setCmUUID(cmUUID);
-			commentDto.setPostUUID(postUUID);
-			commentDto.setUserUUID(userUUID);
+			PbComment commentDto=new PbComment();
+			commentDto.setCmtext(cmText);
+			commentDto.setCmtime(new Date());
+			commentDto.setCmuuid(cmUUID);
+			commentDto.setPostuuid(postUUID);
+			commentDto.setUseruuid(userUUID);
 			
 			
 			String text=this.removeHtmlTag(cmText);
@@ -110,7 +113,8 @@ public class CommentController extends BasicController{
 			
 			//String path=request.getServletContext().getRealPath("/")+"audio\\" ;
 			//String path=request.getContextPath()+"audio\\" ;
-			String path=request.getSession().getServletContext().getRealPath("/")+"postbar\\audio\\";
+			//String path=request.getSession().getServletContext().getRealPath("/")+"postbar\\audio\\";
+			String path=request.getSession().getServletContext().getRealPath("/audio/");
 
 	        String urlPath=request.getContextPath() + "/audio/"+cmUUID+".mp3";
 	        File uploadDir = new File(path);
@@ -152,7 +156,7 @@ public class CommentController extends BasicController{
 				}
 				 
 			}
-			commentDto.setCmAudio(urlPath);
+			commentDto.setCmaudio(urlPath);
 			commentService.insertComment(commentDto);
 		}
 		this.writeJson(json.toString(), response);
@@ -189,12 +193,12 @@ public class CommentController extends BasicController{
 				json.put("praiseMessage", "您已经对此评论点过赞了！");
 			}else{
 				
-				CommentPraiseDto commentPraiseDto=new CommentPraiseDto();
+				PbCommentPraise commentPraiseDto=new PbCommentPraise();
 				String cmPrUUID=this.getUUID();
-				commentPraiseDto.setCmPrUUID(cmPrUUID);
-				commentPraiseDto.setCmUUID(cmUUID);
-				commentPraiseDto.setPostUUID(postUUID);
-				commentPraiseDto.setUserUUID(myUserUUID);
+				commentPraiseDto.setCmpruuid(cmPrUUID);
+				commentPraiseDto.setCmuuid(cmUUID);
+				commentPraiseDto.setPostuuid(postUUID);
+				commentPraiseDto.setUseruuid(myUserUUID);
 				commentService.insertPraise(commentPraiseDto);
 				
 				String myAdmin=(String) session.getAttribute("admin");
@@ -227,10 +231,10 @@ public class CommentController extends BasicController{
 			String myUserUUID=(String) session.getAttribute("id");
 			
 			String poPrUUID=this.getUUID();
-			PostPraiseDto pbPostPraiseDto=new PostPraiseDto();
-			pbPostPraiseDto.setPoPrUUID(poPrUUID);
-			pbPostPraiseDto.setPostUUID(postUUID);
-			pbPostPraiseDto.setUserUUID(myUserUUID);
+			PbPostPraise pbPostPraiseDto=new PbPostPraise();
+			pbPostPraiseDto.setPopruuid(poPrUUID);
+			pbPostPraiseDto.setPostuuid(postUUID);
+			pbPostPraiseDto.setUseruuid(myUserUUID);
 			commentService.insertPraise(pbPostPraiseDto);
 			
 			int praiseNum=commentService.selectPraiseNum(postUUID);

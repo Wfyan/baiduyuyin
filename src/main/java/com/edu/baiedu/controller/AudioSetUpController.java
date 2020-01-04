@@ -1,6 +1,7 @@
 package com.edu.baiedu.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.edu.baiedu.dao.PbAudio;
 import com.edu.baiedu.model.AudioDto;
 import com.edu.baiedu.service.AudioSetUpService;
 import com.edu.baiedu.service.PostService;
@@ -51,12 +52,12 @@ public class AudioSetUpController extends BasicController{
 		if(sessionTimeout(request)){
 			json.put("message", "页面过期，请重新登录");
 		}else{
-			AudioDto audioDto=new AudioDto();
-			audioDto.setAuSetPit(auSetPit);
-			audioDto.setAuSetSpd(auSetSpd);
-			audioDto.setAuSetUUID(auSetUUID);
-			audioDto.setAuSetVoiPer(auSetVoiPer);
-			audioDto.setAuSetVol(auSetVol);
+			PbAudio audioDto=new PbAudio();
+			audioDto.setAusetpit(auSetPit);
+			audioDto.setAusetspd(auSetSpd);
+			audioDto.setAusetuuid(auSetUUID);
+			audioDto.setAusetvoiper(auSetVoiPer);
+			audioDto.setAusetvol(auSetVol);
 			audioSetUpService.updateAudioByAuSetUUID(audioDto);
 		}
 		this.writeJson(json.toString(), response);

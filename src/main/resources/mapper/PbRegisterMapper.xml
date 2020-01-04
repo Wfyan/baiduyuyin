@@ -241,4 +241,45 @@
       regTime = #{regtime,jdbcType=TIMESTAMP}
     where regUUID = #{reguuid,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateByuserUUIDSelective" parameterType="com.edu.baiedu.model.RegisterDto" >
+    update pb_register
+    <set >
+      <if test="userUUID != null" >
+        userUUID = #{userUUID,jdbcType=VARCHAR},
+      </if>
+      <if test="regSex != null" >
+        regSex = #{regSex,jdbcType=VARCHAR},
+      </if>
+      <if test="regAge != null" >
+        regAge = #{regAge,jdbcType=INTEGER},
+      </if>
+      <if test="regEmial != null" >
+        regEmial = #{regEmial,jdbcType=VARCHAR},
+      </if>
+      <if test="regPhoto != null" >
+        regPhoto = #{regPhoto,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null" >
+        regTime = #{regTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where regUUID = #{regUUID,jdbcType=VARCHAR}
+  </update>
+
+  <update id="upDateRegisterByRegUUID" parameterType="com.edu.baiedu.model.RegisterDto" >
+    update pb_register
+    set regSex=#{regSex},regAge=#{regAge},
+    regEmial=#{regEmial}
+    where regUUID=#{regUUID}
+  </update>
+
+  <delete id="deleteRegByUserUUID" parameterType="java.lang.String">
+    delete from pb_register
+    where userUUID IN
+    <foreach collection="userUUID" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
 </mapper>

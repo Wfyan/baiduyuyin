@@ -269,4 +269,29 @@
       cmTime = #{cmtime,jdbcType=TIMESTAMP}
     where cmUUID = #{cmuuid,jdbcType=VARCHAR}
   </update>
+
+  <delete id="deleteCommentByPostUUID" parameterType="java.lang.String">
+      delete from pb_comment
+    where postUUID IN
+    <foreach collection="postUUID" index='index' item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <delete id="deleteCommentByCmUUID" parameterType="java.lang.String">
+    delete from pb_comment
+    where cmUUID IN
+    <foreach collection="cmUUID" index='index' item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <delete id="deleteCommentByUserUUID" parameterType="java.lang.String">
+    delete from pb_comment
+    where userUUID IN
+    <foreach collection="userUUID" index='index' item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
 </mapper>

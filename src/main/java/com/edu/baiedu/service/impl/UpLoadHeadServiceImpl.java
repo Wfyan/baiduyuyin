@@ -1,5 +1,6 @@
 package com.edu.baiedu.service.impl;
 
+import com.edu.baiedu.dao.PbRegister;
 import com.edu.baiedu.model.RegisterDto;
 import com.edu.baiedu.repository.PbRegisterMapper;
 import com.edu.baiedu.service.UpLoadHeadService;
@@ -18,7 +19,7 @@ public class UpLoadHeadServiceImpl implements UpLoadHeadService {
 	@Override
 	public void upDateRegPhotoByRegUUID(RegisterDto registerDto) {
 		// TODO Auto-generated method stub
-		pbRegisterMapper.upDateRegPhotoByRegUUID(registerDto);
+		pbRegisterMapper.updateByuserUUIDSelective(registerDto);
 	}
 
 }

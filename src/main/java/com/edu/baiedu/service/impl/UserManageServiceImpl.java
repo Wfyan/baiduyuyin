@@ -1,5 +1,6 @@
 package com.edu.baiedu.service.impl;
 
+import com.edu.baiedu.dao.PbUser;
 import com.edu.baiedu.repository.*;
 import com.edu.baiedu.model.RegisterDto;
 import com.edu.baiedu.model.UserDto;
@@ -58,10 +59,10 @@ public class UserManageServiceImpl implements UserManageService {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED ,rollbackFor={RuntimeException.class, Exception.class})
-	public void updateUser(UserDto userDto, RegisterDto registerDto) {
+	public void updateUser(PbUser userDto, RegisterDto registerDto) {
 		// TODO Auto-generated method stub
-		pbUserMapper.updateUserByUserUUID(userDto);
-		pbRegisterMapper.updateRegByUserUUID(registerDto);
+		pbUserMapper.updateByPrimaryKeySelective(userDto);
+		pbRegisterMapper.updateByuserUUIDSelective(registerDto);
 	}
 
 }

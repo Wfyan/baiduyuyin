@@ -209,4 +209,23 @@
       admin = #{admin,jdbcType=VARCHAR}
     where userUUID = #{useruuid,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateLoginTimeByUserName">
+    UPDATE pb_user SET loginTime=#{loginTime} WHERE userName=#{userName}
+  </update>
+  <update id="updateUserNameByUserUUID">
+    UPDATE pb_user SET userName=#{userName} WHERE userUUID=#{userUUID}
+  </update>
+  <update id="updatePasswordByUserName">
+    UPDATE pb_user SET password=#{password} WHERE userName=#{userName}
+  </update>
+
+  <delete id="deleteUserByUserUUID" parameterType="java.lang.String">
+    delete from pb_user
+    where userUUID IN
+    <foreach collection="userUUID" index="index" item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
 </mapper>

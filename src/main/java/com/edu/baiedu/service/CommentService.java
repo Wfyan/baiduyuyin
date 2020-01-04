@@ -1,6 +1,9 @@
 package com.edu.baiedu.service;
 
 
+import com.edu.baiedu.dao.PbComment;
+import com.edu.baiedu.dao.PbCommentPraise;
+import com.edu.baiedu.dao.PbPostPraise;
 import com.edu.baiedu.model.*;
 
 import java.util.List;
@@ -11,15 +14,15 @@ public interface CommentService {
 	void updatePostPageviews(String postUUID, int postPageviews);
 	RegisterDto selectRegister(String userUUID);
 	List<PostPraiseDto> selectPraiseByPostUUID(String postUUID);
-	void insertPraise(PostPraiseDto pbPostPraiseDto);
+	void insertPraise(PbPostPraise pbPostPraiseDto);
 	int selectPraiseNum(String postUUID);
 	
-	void insertComment(CommentDto commentDto);
+	void insertComment(PbComment commentDto);
 	
 	List<CommentDto> selectCommentHotsByPostUUID(String postUUID);
 	List<CommentDto> selectAllCommentByPostUUID(String postUUID);
 	int selectCommentNumByParameter(String postUUID, String cmUUID, String userUUID);
-	void insertPraise(CommentPraiseDto CommentPraiseDto);
+	void insertPraise(PbCommentPraise CommentPraiseDto);
 	
 	void deleteComment(String[] cmUUID);
 	
@@ -29,5 +32,5 @@ public interface CommentService {
 	
 	String selectCmTextByCmUUID(String cmUUID);
 	
-	void updateCmByCmUUID(CommentDto commentDto);
+	void updateCmByCmUUID(PbComment commentDto);
 }

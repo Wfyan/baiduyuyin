@@ -226,4 +226,17 @@
       auSetVoiPer = #{ausetvoiper,jdbcType=INTEGER}
     where auSetUUID = #{ausetuuid,jdbcType=VARCHAR}
   </update>
+
+  <select id="selectAudioByUserUUID" resultType="com.edu.baiedu.model.AudioDto">
+    select * from pb_audio
+    where userUUID = #{userUUID}
+  </select>
+
+  <delete id="deleteAudioByUserUUID" parameterType="java.lang.String">
+    delete from pb_audio
+    where userUUID IN
+    <foreach collection="userUUID" index='index' item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
 </mapper>

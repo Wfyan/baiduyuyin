@@ -179,4 +179,21 @@
       userUUID = #{useruuid,jdbcType=VARCHAR}
     where poPrUUID = #{popruuid,jdbcType=VARCHAR}
   </update>
+
+  <delete id="deletePost" parameterType="java.lang.String">
+    delete from pb_post_praise
+    where postUUID IN
+    <foreach collection="postUUID" index='index' item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <delete id="deletePostByUserUUID" parameterType="java.lang.String">
+    delete from pb_post_praise
+    where userUUID IN
+    <foreach collection="userUUID" index='index' item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
 </mapper>

@@ -2,6 +2,7 @@ package com.edu.baiedu.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.aip.speech.TtsResponse;
+import com.edu.baiedu.dao.PbComment;
 import com.edu.baiedu.model.AppDto;
 import com.edu.baiedu.model.AudioDto;
 import com.edu.baiedu.model.CommentDto;
@@ -100,10 +101,10 @@ public class MyCommentController extends BasicController{
 			json.put("message", "页面过期，请重新登录");
 		}else{
 			HttpSession session=request.getSession();
-			CommentDto commentDto=new CommentDto();
-			commentDto.setCmUUID(cmUUID);
-			commentDto.setCmText(cmText);
-			commentDto.setCmTime(this.getStringDate(new Date()));
+			PbComment commentDto=new PbComment();
+			commentDto.setCmuuid(cmUUID);
+			commentDto.setCmtext(cmText);
+			commentDto.setCmtime(new Date());
 			commentService.updateCmByCmUUID(commentDto);
 			
 			String userUUID=(String)session.getAttribute("id");
@@ -125,8 +126,8 @@ public class MyCommentController extends BasicController{
 			TtsResponse res=audioSynthesis.synthesis(text, spd, pit, vol, per);
 			byte[] data = res.getData();
 
-			String path=request.getSession().getServletContext().getRealPath("/")+"postbar\\audio\\";
-
+			//String path=request.getSession().getServletContext().getRealPath("/")+"postbar\\audio\\";
+			String path=request.getSession().getServletContext().getRealPath("/audio/");
 
 			File uploadDir = new File(path);
 	        if (!uploadDir.exists() && !uploadDir.isDirectory()) {// 检查目录

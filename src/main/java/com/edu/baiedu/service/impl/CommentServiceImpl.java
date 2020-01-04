@@ -1,5 +1,8 @@
 package com.edu.baiedu.service.impl;
 
+import com.edu.baiedu.dao.PbComment;
+import com.edu.baiedu.dao.PbCommentPraise;
+import com.edu.baiedu.dao.PbPostPraise;
 import com.edu.baiedu.repository.*;
 import com.edu.baiedu.model.*;
 import com.edu.baiedu.service.CommentService;
@@ -54,9 +57,9 @@ public class CommentServiceImpl implements CommentService {
 		return pbPraiseMapper.selectPraiseByPostUUID(postUUID);
 	}
 	@Override
-	public void insertPraise(PostPraiseDto pbPostPraiseDto) {
+	public void insertPraise(PbPostPraise pbPostPraiseDto) {
 		// TODO Auto-generated method stub
-		pbPraiseMapper.insertPraise(pbPostPraiseDto);
+		pbPraiseMapper.insertSelective(pbPostPraiseDto);
 	}
 	@Override
 	public int selectPraiseNum(String postUUID) {
@@ -64,13 +67,14 @@ public class CommentServiceImpl implements CommentService {
 		return pbPraiseMapper.selectPraiseNum(postUUID);
 	}
 	@Override
-	public void insertComment(CommentDto commentDto) {
+	public void insertComment(PbComment commentDto) {
 		// TODO Auto-generated method stub
-		pbCommentMapper.insertComment(commentDto);
+		pbCommentMapper.insertSelective(commentDto);
 	}
 	@Override
 	public List<CommentDto> selectCommentHotsByPostUUID(String postUUID) {
 		// TODO Auto-generated method stub
+
 		return pbCommentMapper.selectCommentHotsByPostUUID(postUUID);
 	}
 	@Override
@@ -87,9 +91,9 @@ public class CommentServiceImpl implements CommentService {
 		
 	}
 	@Override
-	public void insertPraise(CommentPraiseDto CommentPraiseDto) {
+	public void insertPraise(PbCommentPraise CommentPraiseDto) {
 		// TODO Auto-generated method stub
-		pbCommentPraiseMapper.insertPraise(CommentPraiseDto);
+		pbCommentPraiseMapper.insertSelective(CommentPraiseDto);
 	}
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED ,rollbackFor={RuntimeException.class, Exception.class})
@@ -114,9 +118,9 @@ public class CommentServiceImpl implements CommentService {
 		return pbCommentMapper.selectCmTextByCmUUID(cmUUID);
 	}
 	@Override
-	public void updateCmByCmUUID(CommentDto commentDto) {
+	public void updateCmByCmUUID(PbComment commentDto) {
 		// TODO Auto-generated method stub
-		pbCommentMapper.updateCmByCmUUID(commentDto);
+		pbCommentMapper.updateByPrimaryKeySelective(commentDto);
 	}
 
 

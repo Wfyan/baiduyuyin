@@ -2,6 +2,7 @@ package com.edu.baiedu.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baidu.aip.speech.TtsResponse;
+import com.edu.baiedu.dao.PbPost;
 import com.edu.baiedu.model.AppDto;
 import com.edu.baiedu.model.AudioDto;
 import com.edu.baiedu.model.PostDto;
@@ -111,13 +112,13 @@ public class PostController extends BasicController{
 			String postTime=this.getStringDate(new Date());
 			int postPageviews=0;
 			
-			PostDto postDto=new PostDto();
-			postDto.setPostPageviews(postPageviews);
-			postDto.setPostText(postText);
-			postDto.setPostTime(postTime);
-			postDto.setPostTitle(postTitle);
-			postDto.setPostUUID(postUUID);
-			postDto.setUserUUID(userUUID);
+			PbPost postDto=new PbPost();
+			postDto.setPostpageviews(postPageviews);
+			postDto.setPosttext(postText);
+			postDto.setPosttime(new Date());
+			postDto.setPosttitle(postTitle);
+			postDto.setPostuuid(postUUID);
+			postDto.setUseruuid(userUUID);
 			
 			
 		//------------------------------	
@@ -186,7 +187,7 @@ public class PostController extends BasicController{
 				}
 				 
 			}
-			postDto.setPostAudio(urlPath);
+			postDto.setPostaudio(urlPath);
 			postService.addPost(postDto);
 	
 		}

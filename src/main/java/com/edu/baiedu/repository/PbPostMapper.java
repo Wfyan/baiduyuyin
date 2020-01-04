@@ -38,9 +38,9 @@ public interface PbPostMapper {
 
 	int updateByPrimaryKey(PbPost record);
 
-	//添加文章
+/*	//添加文章
 	@Insert("INSERT INTO pb_post (postUUID,userUUID,postTitle,postText,postPageviews,postAudio,postTime) VALUES (#{postUUID},#{userUUID},#{postTitle},#{postText},#{postPageviews},#{postAudio},#{postTime})")
-	void insertPost(PostDto postDto);
+	void insertPost(PostDto postDto);*/
 	//查询文章个数
 	@Select("<script>"
 			+ "SELECT count(*) FROM pb_post  "
@@ -73,24 +73,12 @@ public interface PbPostMapper {
 			+" LIMIT #{startNo},#{pageSize}"
 			+ "</script>")
 	List<PostDto> selectPostList(@Param("postTitle") String postTitle, @Param("startNo") Integer pageNo, @Param("pageSize") Integer pageSize, @Param("userUUID") String userUUID);
+
 	//删除文章
-	@Delete("<script>"
-			+"DELETE FROM pb_post WHERE postUUID in"
-			+ "<foreach item='item' index='index' collection='postUUID' open='(' separator=',' close=')'>"
-	        +       "#{item}"
-	        + "</foreach>"
-			+"</script>")
 	void deletePost(@Param("postUUID") String[] postUUID);
-	
-	@Delete("<script>"
-			+"DELETE FROM pb_post WHERE userUUID in"
-			+ "<foreach item='item' index='index' collection='userUUID' open='(' separator=',' close=')'>"
-	        +       "#{item}"
-	        + "</foreach>"
-			+"</script>")
+
 	void deletePostByUserUUID(@Param("userUUID") String[] userUUID);
-	
-	
+
 	@Select("SELECT * FROM pb_post as a WHERE postUUID=#{postUUID}  ")
 	PostDto selectPostByPostUUID(@Param("postUUID") String postUUID);
 	

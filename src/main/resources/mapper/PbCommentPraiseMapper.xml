@@ -75,7 +75,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from pb_comment_praise
+    from pb_comment_praise_praise
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -86,27 +86,27 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
-    from pb_comment_praise
+    from pb_comment_praise_praise
     where cmPrUUID = #{cmpruuid,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from pb_comment_praise
+    delete from pb_comment_praise_praise
     where cmPrUUID = #{cmpruuid,jdbcType=VARCHAR}
   </delete>
   <delete id="deleteByExample" parameterType="com.edu.baiedu.dao.PbCommentPraiseExample" >
-    delete from pb_comment_praise
+    delete from pb_comment_praise_praise
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.edu.baiedu.dao.PbCommentPraise" >
-    insert into pb_comment_praise (cmPrUUID, postUUID, userUUID, 
+    insert into pb_comment_praise_praise (cmPrUUID, postUUID, userUUID, 
       cmUUID)
     values (#{cmpruuid,jdbcType=VARCHAR}, #{postuuid,jdbcType=VARCHAR}, #{useruuid,jdbcType=VARCHAR}, 
       #{cmuuid,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.edu.baiedu.dao.PbCommentPraise" >
-    insert into pb_comment_praise
+    insert into pb_comment_praise_praise
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="cmpruuid != null" >
         cmPrUUID,
@@ -137,13 +137,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.edu.baiedu.dao.PbCommentPraiseExample" resultType="java.lang.Integer" >
-    select count(*) from pb_comment_praise
+    select count(*) from pb_comment_praise_praise
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update pb_comment_praise
+    update pb_comment_praise_praise
     <set >
       <if test="record.cmpruuid != null" >
         cmPrUUID = #{record.cmpruuid,jdbcType=VARCHAR},
@@ -163,7 +163,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update pb_comment_praise
+    update pb_comment_praise_praise
     set cmPrUUID = #{record.cmpruuid,jdbcType=VARCHAR},
       postUUID = #{record.postuuid,jdbcType=VARCHAR},
       userUUID = #{record.useruuid,jdbcType=VARCHAR},
@@ -173,7 +173,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.edu.baiedu.dao.PbCommentPraise" >
-    update pb_comment_praise
+    update pb_comment_praise_praise
     <set >
       <if test="postuuid != null" >
         postUUID = #{postuuid,jdbcType=VARCHAR},
@@ -188,10 +188,35 @@
     where cmPrUUID = #{cmpruuid,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.edu.baiedu.dao.PbCommentPraise" >
-    update pb_comment_praise
+    update pb_comment_praise_praise
     set postUUID = #{postuuid,jdbcType=VARCHAR},
       userUUID = #{useruuid,jdbcType=VARCHAR},
       cmUUID = #{cmuuid,jdbcType=VARCHAR}
     where cmPrUUID = #{cmpruuid,jdbcType=VARCHAR}
   </update>
+
+  <delete id="deleteCommentPraiseByPostUUID" parameterType="java.lang.String">
+    delete from pb_comment_praise
+    where postUUID IN
+    <foreach collection="postUUID" index='index' item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <delete id="deleteCommentPraiseByCmUUID" parameterType="java.lang.String">
+    delete from pb_comment_praise
+    where cmUUID IN
+    <foreach collection="cmUUID" index='index' item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <delete id="deleteCommentPraiseByUserUUID" parameterType="java.lang.String">
+    delete from pb_comment_praise
+    where userUUID IN
+    <foreach collection="userUUID" index='index' item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+  
 </mapper>

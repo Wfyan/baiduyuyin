@@ -36,37 +36,19 @@ public interface PbCommentMapper {
 	int updateByPrimaryKeyWithBLOBs(PbComment record);
 
 	int updateByPrimaryKey(PbComment record);
-	@Delete("<script>"
-			+"DELETE FROM pb_comment WHERE postUUID in"
-			+ "<foreach item='item' index='index' collection='postUUID' open='(' separator=',' close=')'>"
-	        +       "#{item}"
-	        + "</foreach>"
-			+"</script>")
+
 	void deleteCommentByPostUUID(@Param("postUUID") String[] postUUID);
-	
-	@Delete("<script>"
-			+"DELETE FROM pb_comment WHERE cmUUID in"
-			+ "<foreach item='item' index='index' collection='cmUUID' open='(' separator=',' close=')'>"
-	        +       "#{item}"
-	        + "</foreach>"
-			+"</script>")
+
 	void deleteCommentByCmUUID(@Param("cmUUID") String[] cmUUID);
-	
-	@Delete("<script>"
-			+"DELETE FROM pb_comment WHERE userUUID in"
-			+ "<foreach item='item' index='index' collection='userUUID' open='(' separator=',' close=')'>"
-	        +       "#{item}"
-	        + "</foreach>"
-			+"</script>")
+
 	void deleteCommentByUserUUID(@Param("userUUID") String[] userUUID);
 	
-	@Insert("INSERT INTO pb_comment (cmUUID,postUUID,userUUID,cmText,cmAudio,cmTime) VALUES (#{cmUUID},#{postUUID},#{userUUID},#{cmText},#{cmAudio},#{cmTime})")
-	void insertComment(CommentDto commentDto);
+/*	@Insert("INSERT INTO pb_comment (cmUUID,postUUID,userUUID,cmText,cmAudio,cmTime) VALUES (#{cmUUID},#{postUUID},#{userUUID},#{cmText},#{cmAudio},#{cmTime})")
+	void insertComment(CommentDto commentDto);*/
 	
 	@Select("SELECT a.cmUUID,a.postUUID,a.userUUID,a.cmText,a.cmAudio,a.cmTime,COUNT(b.cmPrUUID) cmPrNum,c.userName,d.regTime,d.regPhoto FROM post_bar.pb_comment a,post_bar.pb_comment_praise b,post_bar.pb_user c,post_bar.pb_register d WHERE a.postUUID=#{postUUID} AND c.userUUID=a.userUUID AND d.userUUID=a.userUUID AND a.cmUUID=b.cmUUID GROUP BY a.cmUUID,d.regTime,d.regPhoto ORDER BY cmPrNum DESC LIMIT 0,5")
 	List<CommentDto> selectCommentHotsByPostUUID(@Param("postUUID") String postUUID);
-	
-	
+
 	@Select("SELECT a.cmUUID,a.postUUID,a.userUUID,a.cmText,a.cmAudio,a.cmTime,c.userName,d.regTime,d.regPhoto,IFNULL(t.cmPrNum,0) cmPrNum FROM (post_bar.pb_comment a,post_bar.pb_user c,post_bar.pb_register d) LEFT JOIN(SELECT COUNT(*) cmPrNum,b.cmUUID FROM post_bar.pb_comment_praise b GROUP BY b.cmUUID ) t ON t.cmUUID=a.cmUUID  WHERE a.postUUID=#{postUUID} AND c.userUUID=a.userUUID AND d.userUUID=a.userUUID  GROUP BY a.cmUUID,d.regTime,d.regPhoto,t.cmPrNum ORDER BY a.cmTime DESC")
 	List<CommentDto> selectAllCommentByPostUUID(@Param("postUUID") String postUUID);
 	
@@ -79,6 +61,6 @@ public interface PbCommentMapper {
 	@Select("SELECT cmText FROM pb_comment WHERE cmUUID=#{cmUUID}")
 	String selectCmTextByCmUUID(@Param("cmUUID") String cmUUID);
 	
-	@Update("UPDATE pb_comment SET cmText = #{cmText},cmTime=#{cmTime} WHERE cmUUID = #{cmUUID}")
-	void updateCmByCmUUID(CommentDto commentDto);
+/*	@Update("UPDATE pb_comment SET cmText = #{cmText},cmTime=#{cmTime} WHERE cmUUID = #{cmUUID}")
+	void updateCmByCmUUID(CommentDto commentDto);*/
 }

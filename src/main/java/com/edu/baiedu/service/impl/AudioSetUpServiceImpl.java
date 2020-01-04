@@ -1,6 +1,7 @@
 package com.edu.baiedu.service.impl;
 
 
+import com.edu.baiedu.dao.PbAudio;
 import com.edu.baiedu.repository.PbAudioMapper;
 import com.edu.baiedu.model.AudioDto;
 import com.edu.baiedu.service.AudioSetUpService;
@@ -12,9 +13,9 @@ public class AudioSetUpServiceImpl implements AudioSetUpService {
 	@Autowired
 	private PbAudioMapper pbAudioMapper;
 	@Override
-	public void updateAudioByAuSetUUID(AudioDto audioDto) {
+	public void updateAudioByAuSetUUID(PbAudio audioDto) {
 		// TODO Auto-generated method stub
-		pbAudioMapper.updateAudioByAuSetUUID(audioDto);
+		pbAudioMapper.updateByPrimaryKeySelective(audioDto);
 	}
 
 	

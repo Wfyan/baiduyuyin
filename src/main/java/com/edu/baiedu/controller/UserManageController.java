@@ -1,5 +1,6 @@
 package com.edu.baiedu.controller;
 
+import com.edu.baiedu.dao.PbUser;
 import com.edu.baiedu.model.RegisterDto;
 import com.edu.baiedu.model.UserDto;
 import com.edu.baiedu.service.LoginService;
@@ -44,13 +45,13 @@ public class UserManageController extends BasicController{
 			if((!oldName.equals(userName)) &&loginService.getUserNumByUserName(userName)!=0){
 				json.put("error", "用户名已存在");
 			}else{
-				UserDto userDto=new UserDto();
+				PbUser userDto=new PbUser();
 				if(!password.trim().equals("")){
 					userDto.setPassword(this.md5(password));
 				}
-				userDto.setUserName(userName);
+				userDto.setUsername(userName);
 				userDto.setAdmin(admin);
-				userDto.setUserUUID(userUUID);
+				userDto.setUseruuid(userUUID);
 				
 				RegisterDto registerDto=new RegisterDto();
 				registerDto.setUserUUID(userUUID);
@@ -59,8 +60,7 @@ public class UserManageController extends BasicController{
 				registerDto.setRegSex(regsex);
 				userManageService.updateUser(userDto, registerDto);
 			}
-			
-			
+
 		}
 		this.writeJson(json.toString(), response);
 	}
@@ -93,8 +93,7 @@ public class UserManageController extends BasicController{
 			json.put("allPage", 0);
 			json.put("pageIndex", 0);
 			json.put("registerList", "");
-			
-			
+
 			int userAllNum=userManageService.getUserAllNum(userName,userUUID);
 			json.put("userAllNum", userAllNum);
 			
@@ -120,9 +119,7 @@ public class UserManageController extends BasicController{
 				
 				
 				List<RegisterDto> list=userManageService.selectRegList(userName, pageIndex*everyPageDataCount, everyPageDataCount, userUUID);
-				
-				
-			
+
 				json.put("registerList", list);
 			}
 		

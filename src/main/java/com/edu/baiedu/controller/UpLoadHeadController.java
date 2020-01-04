@@ -38,19 +38,8 @@ public class UpLoadHeadController extends BasicController{
 
 			//String path=request.getSession().getServletContext().getRealPath("/")+"headPhoto\\" ;
 			//String path=request.getServletPath()+"headPhoto\\" ; ///upLoadHeadController/editHeadheadPhoto\
-			String path1=request.getSession().getServletContext().getRealPath("/postbar/")+"headPhoto\\";
 
-			//自定义上传路径
-			String path2 = request.getContextPath(); //图片路径/postbar
-			String path3 = request.getServletPath(); //图片路径/upLoadHeadController/editHead
-
-
-//定义文件上传路径 此处为tomcat下的路径，服务重启后会重新创建路径
 			String path=request.getSession().getServletContext().getRealPath("/headPhoto/");
-			System.out.println("图片路径"+path1);
-			System.out.println("图片路径"+path2);
-			System.out.println("图片路径"+path3);
-			System.out.println("图片路径"+path);
 
 	        String urlPath=request.getContextPath() + "/headPhoto/"+userUUID+".jpg";
 			//String urlPath=request.getSession().getServletContext().getRealPath("/headPhoto/") + userUUID+".jpg";

@@ -1,6 +1,7 @@
 package com.edu.baiedu.controller;
 
 import com.edu.baiedu.dao.PbAudio;
+import com.edu.baiedu.dao.PbRegister;
 import com.edu.baiedu.dao.PbUser;
 import com.edu.baiedu.model.AudioDto;
 import com.edu.baiedu.model.RegisterDto;
@@ -88,14 +89,14 @@ public class LoginController extends BasicController{
 			int auSetSpd=5;
 			int auSetVol=5;
 			int auSetVoiPer=0;
-			RegisterDto registerDto=new RegisterDto();
-			registerDto.setRegAge(regAge);
-			registerDto.setRegEmial(regEmial);
-			registerDto.setRegSex(regSex);
-			registerDto.setRegTime(regTime);
-			registerDto.setRegUUID(regUUID);
-			registerDto.setUserUUID(userUUID);
-			registerDto.setRegPhoto(photoAir);
+			PbRegister registerDto=new PbRegister();
+			registerDto.setRegage(regAge);
+			registerDto.setRegemial(regEmial);
+			registerDto.setRegsex(regSex);
+			registerDto.setRegtime(new Date());
+			registerDto.setReguuid(regUUID);
+			registerDto.setUseruuid(userUUID);
+			registerDto.setRegphoto(photoAir);
 			PbUser userDto=new PbUser();
 			userDto.setPassword(md5Password);
 			userDto.setUsername(userName);

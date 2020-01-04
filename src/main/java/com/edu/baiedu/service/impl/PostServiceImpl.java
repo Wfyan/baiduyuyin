@@ -1,5 +1,6 @@
 package com.edu.baiedu.service.impl;
 
+import com.edu.baiedu.dao.PbPost;
 import com.edu.baiedu.repository.*;
 import com.edu.baiedu.model.AppDto;
 import com.edu.baiedu.model.AudioDto;
@@ -28,9 +29,9 @@ public class PostServiceImpl implements PostService {
 	@Autowired
 	private PbAppMapper pbAppMapper;
 	@Override
-	public void addPost(PostDto postDto) {
+	public void addPost(PbPost postDto) {
 		// TODO Auto-generated method stub
-		pbPostMapper.insertPost(postDto);
+		pbPostMapper.insertSelective(postDto);
 	}
 	@Override
 	public int getPostAllNum(String postTitle,String userUUID) {

@@ -286,4 +286,21 @@
       postTime = #{posttime,jdbcType=TIMESTAMP}
     where postUUID = #{postuuid,jdbcType=VARCHAR}
   </update>
+
+  <delete id="deletePost" parameterType="java.lang.String">
+    delete from pb_post
+    where postUUID IN
+    <foreach collection="postUUID" index='index' item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
+  <delete id="deletePostByUserUUID" parameterType="java.lang.String">
+    delete from pb_post
+    where userUUID IN
+    <foreach collection="userUUID" index='index' item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+  </delete>
+
 </mapper>
