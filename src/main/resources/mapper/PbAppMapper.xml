@@ -194,4 +194,8 @@
       secretKey = #{secretkey,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectApp" resultMap="com.edu.baiedu.model.AppDto">
+    select id,appID,apiKey,secretKey from pb_app
+  </select>
 </mapper>

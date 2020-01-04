@@ -1,11 +1,41 @@
 package com.edu.baiedu.repository;
 
+import com.edu.baiedu.dao.PbComment;
+import com.edu.baiedu.dao.PbCommentExample;
 import com.edu.baiedu.model.CommentDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
 public interface PbCommentMapper {
+
+	int countByExample(PbCommentExample example);
+
+	int deleteByExample(PbCommentExample example);
+
+	int deleteByPrimaryKey(String cmuuid);
+
+	int insert(PbComment record);
+
+	int insertSelective(PbComment record);
+
+	List<PbComment> selectByExampleWithBLOBs(PbCommentExample example);
+
+	List<PbComment> selectByExample(PbCommentExample example);
+
+	PbComment selectByPrimaryKey(String cmuuid);
+
+	int updateByExampleSelective(@Param("record") PbComment record, @Param("example") PbCommentExample example);
+
+	int updateByExampleWithBLOBs(@Param("record") PbComment record, @Param("example") PbCommentExample example);
+
+	int updateByExample(@Param("record") PbComment record, @Param("example") PbCommentExample example);
+
+	int updateByPrimaryKeySelective(PbComment record);
+
+	int updateByPrimaryKeyWithBLOBs(PbComment record);
+
+	int updateByPrimaryKey(PbComment record);
 	@Delete("<script>"
 			+"DELETE FROM pb_comment WHERE postUUID in"
 			+ "<foreach item='item' index='index' collection='postUUID' open='(' separator=',' close=')'>"

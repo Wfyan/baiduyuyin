@@ -1,5 +1,6 @@
 package com.edu.baiedu.service.impl;
 
+import com.edu.baiedu.dao.PbAudio;
 import com.edu.baiedu.repository.PbAudioMapper;
 import com.edu.baiedu.repository.PbRegisterMapper;
 import com.edu.baiedu.repository.PbUserMapper;
@@ -50,14 +51,14 @@ public class LoginServiceImpl implements LoginService {
 	//Spring aop 在我们项目中就是实现事务控制
 	@Override
 	@Transactional(propagation= Propagation.REQUIRED,rollbackFor= {RuntimeException.class,Exception.class})
-	public void addUserRegister(RegisterDto registerDto, UserDto userDto, AudioDto audioDto) {
+	public void addUserRegister(RegisterDto registerDto, UserDto userDto, PbAudio audioDto) {
 		//用户数据数据添加  对应的是用户表
 		pbUserMapper.insertUser(userDto);
 		//用户注册表数据
 		pbRegisterMapper.insertRegister(registerDto);
 	    //int i=1/0; 模拟事务的回滚
 		//用于语音表数据添加
-		pbAudioMapper.insertAudio(audioDto);
+		pbAudioMapper.insertSelective(audioDto);
 		
 	}
 	//修改密码方法实现

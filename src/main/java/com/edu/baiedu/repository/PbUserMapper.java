@@ -1,12 +1,38 @@
 package com.edu.baiedu.repository;
 
 
+import com.edu.baiedu.dao.PbUser;
+import com.edu.baiedu.dao.PbUserExample;
 import com.edu.baiedu.model.UserDto;
 import org.apache.ibatis.annotations.*;
 
 import java.util.Date;
+import java.util.List;
 
 public interface PbUserMapper {
+
+	int countByExample(PbUserExample example);
+
+	int deleteByExample(PbUserExample example);
+
+	int deleteByPrimaryKey(String useruuid);
+
+	int insert(PbUser record);
+
+	int insertSelective(PbUser record);
+
+	List<PbUser> selectByExample(PbUserExample example);
+
+	PbUser selectByPrimaryKey(String useruuid);
+
+	int updateByExampleSelective(@Param("record") PbUser record, @Param("example") PbUserExample example);
+
+	int updateByExample(@Param("record") PbUser record, @Param("example") PbUserExample example);
+
+	int updateByPrimaryKeySelective(PbUser record);
+
+	int updateByPrimaryKey(PbUser record);
+
 	@Insert("INSERT INTO pb_user (userUUID,userName,password,loginTime,admin) VALUES (#{userUUID},#{userName},#{password},#{loginTime},#{admin})")
 	void insertUser(UserDto userDto);
 	

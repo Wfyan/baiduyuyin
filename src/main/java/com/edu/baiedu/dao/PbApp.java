@@ -1,6 +1,10 @@
 package com.edu.baiedu.dao;
 
-public class PbApp {
+import java.io.Serializable;
+
+public class PbApp implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private Integer id;
 
     private String appid;
