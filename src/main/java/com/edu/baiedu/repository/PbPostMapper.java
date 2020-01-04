@@ -58,7 +58,7 @@ public interface PbPostMapper {
 	
 	//查询文章列表
 	@Select("<script>"
-			+ "SELECT a.postUUID,c.userName,f.cmTime,IFNULL(f.commentNum,0) as commentNum,a.userUUID,a.postTitle,a.postPageviews,a.postTime FROM (pb_post as a LEFT JOIN (SELECT b.userName,b.userUUID FROM pb_user as b ) as c ON a.userUUID=c.userUUID)  LEFT JOIN (SELECT COUNT(*) AS commentNum,e.postUUID,max(e.cmTime) AS cmTime FROM post_bar.pb_comment as e GROUP BY e.postUUID ) AS f ON f.postUUID=a.postUUID  "
+			+ "SELECT a.postUUID,c.userName,IFNULL(f.cmTime,'') as cmTime,IFNULL(f.commentNum,0) as commentNum,a.userUUID,a.postTitle,a.postPageviews,a.postTime FROM (pb_post as a LEFT JOIN (SELECT b.userName,b.userUUID FROM pb_user as b ) as c ON a.userUUID=c.userUUID)  LEFT JOIN (SELECT COUNT(*) AS commentNum,e.postUUID,max(e.cmTime) AS cmTime FROM post_bar.pb_comment as e GROUP BY e.postUUID ) AS f ON f.postUUID=a.postUUID  "
 			+ "<if test='postTitle!=null and postTitle != \"\" '>"
 			+" WHERE a.postTitle LIKE CONCAT('%',#{postTitle},'%')"
 			+ "</if>"
