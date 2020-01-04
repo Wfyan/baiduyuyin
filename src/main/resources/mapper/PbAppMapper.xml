@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mapper.PbAppMapper" >
+<mapper namespace="com.edu.baiedu.repository.PbAppMapper" >
   <resultMap id="BaseResultMap" type="com.edu.baiedu.dao.PbApp" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="appID" property="appid" jdbcType="VARCHAR" />
@@ -195,7 +195,7 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-  <select id="selectApp" resultMap="com.edu.baiedu.model.AppDto">
+  <select id="selectApp" resultType="com.edu.baiedu.model.AppDto">
     select id,appID,apiKey,secretKey from pb_app
   </select>
 </mapper>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.mapper.PbCommentMapper" >
+<mapper namespace="com.edu.baiedu.repository.PbCommentMapper" >
   <resultMap id="BaseResultMap" type="com.edu.baiedu.dao.PbComment" >
     <id column="cmUUID" property="cmuuid" jdbcType="VARCHAR" />
     <result column="postUUID" property="postuuid" jdbcType="VARCHAR" />

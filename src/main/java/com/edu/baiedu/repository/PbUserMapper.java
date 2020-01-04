@@ -1,6 +1,5 @@
 package com.edu.baiedu.repository;
 
-
 import com.edu.baiedu.dao.PbUser;
 import com.edu.baiedu.dao.PbUserExample;
 import com.edu.baiedu.model.UserDto;
@@ -32,9 +31,6 @@ public interface PbUserMapper {
 	int updateByPrimaryKeySelective(PbUser record);
 
 	int updateByPrimaryKey(PbUser record);
-
-	@Insert("INSERT INTO pb_user (userUUID,userName,password,loginTime,admin) VALUES (#{userUUID},#{userName},#{password},#{loginTime},#{admin})")
-	void insertUser(UserDto userDto);
 	
 	@Select("SELECT count(*) FROM pb_user WHERE userName=#{userName}")
 	int selectUserNumByUserName(@Param("userName") String userName);

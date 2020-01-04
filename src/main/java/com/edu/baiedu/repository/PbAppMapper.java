@@ -4,7 +4,6 @@ import com.edu.baiedu.dao.PbApp;
 import com.edu.baiedu.dao.PbAppExample;
 import com.edu.baiedu.model.AppDto;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 

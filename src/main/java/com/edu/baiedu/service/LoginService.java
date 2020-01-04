@@ -2,6 +2,7 @@ package com.edu.baiedu.service;
 
 
 import com.edu.baiedu.dao.PbAudio;
+import com.edu.baiedu.dao.PbUser;
 import com.edu.baiedu.model.AudioDto;
 import com.edu.baiedu.model.RegisterDto;
 import com.edu.baiedu.model.UserDto;
@@ -9,7 +10,7 @@ import com.edu.baiedu.model.UserDto;
 import java.util.Date;
 
 public interface LoginService {
-	void addUserRegister(RegisterDto registerDto, UserDto userDto, PbAudio audioDto);
+	void addUserRegister(RegisterDto registerDto, PbUser userDto, PbAudio audioDto);
 	
 	int getUserNumByUserName(String userName);
 	

@@ -1,5 +1,7 @@
 package com.edu.baiedu.controller;
 
+import com.edu.baiedu.dao.PbAudio;
+import com.edu.baiedu.dao.PbUser;
 import com.edu.baiedu.model.AudioDto;
 import com.edu.baiedu.model.RegisterDto;
 import com.edu.baiedu.model.UserDto;
@@ -94,19 +96,19 @@ public class LoginController extends BasicController{
 			registerDto.setRegUUID(regUUID);
 			registerDto.setUserUUID(userUUID);
 			registerDto.setRegPhoto(photoAir);
-			UserDto userDto=new UserDto();
+			PbUser userDto=new PbUser();
 			userDto.setPassword(md5Password);
-			userDto.setUserName(userName);
-			userDto.setUserUUID(userUUID);
+			userDto.setUsername(userName);
+			userDto.setUseruuid(userUUID);
 			userDto.setAdmin(admin);
 			
-			AudioDto audioDto=new AudioDto();
-			audioDto.setAuSetPit(auSetPit);
-			audioDto.setAuSetSpd(auSetSpd);
-			audioDto.setAuSetUUID(auSetUUID);
-			audioDto.setAuSetVoiPer(auSetVoiPer);
-			audioDto.setAuSetVol(auSetVol);
-			audioDto.setUserUUID(userUUID);
+			PbAudio audioDto=new PbAudio();
+			audioDto.setAusetpit(auSetPit);
+			audioDto.setAusetspd(auSetSpd);
+			audioDto.setAusetuuid(auSetUUID);
+			audioDto.setAusetvoiper(auSetVoiPer);
+			audioDto.setAusetvol(auSetVol);
+			audioDto.setUseruuid(userUUID);
 			loginService.addUserRegister(registerDto, userDto,audioDto);
 		}
 		this.writeJson(json.toString(), response);
