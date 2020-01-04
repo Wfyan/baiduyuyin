@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.PbRegisterMapper" >
+  <resultMap id="BaseResultMap" type="com.edu.baiedu.dao.PbRegister" >
+    <id column="regUUID" property="reguuid" jdbcType="VARCHAR" />
+    <result column="userUUID" property="useruuid" jdbcType="VARCHAR" />
+    <result column="regSex" property="regsex" jdbcType="VARCHAR" />
+    <result column="regAge" property="regage" jdbcType="INTEGER" />
+    <result column="regEmial" property="regemial" jdbcType="VARCHAR" />
+    <result column="regPhoto" property="regphoto" jdbcType="VARCHAR" />
+    <result column="regTime" property="regtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    regUUID, userUUID, regSex, regAge, regEmial, regPhoto, regTime
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.edu.baiedu.dao.PbRegisterExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from pb_register
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pb_register
+    where regUUID = #{reguuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pb_register
+    where regUUID = #{reguuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.baiedu.dao.PbRegisterExample" >
+    delete from pb_register
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.baiedu.dao.PbRegister" >
+    insert into pb_register (regUUID, userUUID, regSex, 
+      regAge, regEmial, regPhoto, 
+      regTime)
+    values (#{reguuid,jdbcType=VARCHAR}, #{useruuid,jdbcType=VARCHAR}, #{regsex,jdbcType=VARCHAR}, 
+      #{regage,jdbcType=INTEGER}, #{regemial,jdbcType=VARCHAR}, #{regphoto,jdbcType=VARCHAR}, 
+      #{regtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.baiedu.dao.PbRegister" >
+    insert into pb_register
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="reguuid != null" >
+        regUUID,
+      </if>
+      <if test="useruuid != null" >
+        userUUID,
+      </if>
+      <if test="regsex != null" >
+        regSex,
+      </if>
+      <if test="regage != null" >
+        regAge,
+      </if>
+      <if test="regemial != null" >
+        regEmial,
+      </if>
+      <if test="regphoto != null" >
+        regPhoto,
+      </if>
+      <if test="regtime != null" >
+        regTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="reguuid != null" >
+        #{reguuid,jdbcType=VARCHAR},
+      </if>
+      <if test="useruuid != null" >
+        #{useruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="regsex != null" >
+        #{regsex,jdbcType=VARCHAR},
+      </if>
+      <if test="regage != null" >
+        #{regage,jdbcType=INTEGER},
+      </if>
+      <if test="regemial != null" >
+        #{regemial,jdbcType=VARCHAR},
+      </if>
+      <if test="regphoto != null" >
+        #{regphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null" >
+        #{regtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.baiedu.dao.PbRegisterExample" resultType="java.lang.Integer" >
+    select count(*) from pb_register
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pb_register
+    <set >
+      <if test="record.reguuid != null" >
+        regUUID = #{record.reguuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useruuid != null" >
+        userUUID = #{record.useruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regsex != null" >
+        regSex = #{record.regsex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regage != null" >
+        regAge = #{record.regage,jdbcType=INTEGER},
+      </if>
+      <if test="record.regemial != null" >
+        regEmial = #{record.regemial,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regphoto != null" >
+        regPhoto = #{record.regphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="record.regtime != null" >
+        regTime = #{record.regtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pb_register
+    set regUUID = #{record.reguuid,jdbcType=VARCHAR},
+      userUUID = #{record.useruuid,jdbcType=VARCHAR},
+      regSex = #{record.regsex,jdbcType=VARCHAR},
+      regAge = #{record.regage,jdbcType=INTEGER},
+      regEmial = #{record.regemial,jdbcType=VARCHAR},
+      regPhoto = #{record.regphoto,jdbcType=VARCHAR},
+      regTime = #{record.regtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.baiedu.dao.PbRegister" >
+    update pb_register
+    <set >
+      <if test="useruuid != null" >
+        userUUID = #{useruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="regsex != null" >
+        regSex = #{regsex,jdbcType=VARCHAR},
+      </if>
+      <if test="regage != null" >
+        regAge = #{regage,jdbcType=INTEGER},
+      </if>
+      <if test="regemial != null" >
+        regEmial = #{regemial,jdbcType=VARCHAR},
+      </if>
+      <if test="regphoto != null" >
+        regPhoto = #{regphoto,jdbcType=VARCHAR},
+      </if>
+      <if test="regtime != null" >
+        regTime = #{regtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where regUUID = #{reguuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.baiedu.dao.PbRegister" >
+    update pb_register
+    set userUUID = #{useruuid,jdbcType=VARCHAR},
+      regSex = #{regsex,jdbcType=VARCHAR},
+      regAge = #{regage,jdbcType=INTEGER},
+      regEmial = #{regemial,jdbcType=VARCHAR},
+      regPhoto = #{regphoto,jdbcType=VARCHAR},
+      regTime = #{regtime,jdbcType=TIMESTAMP}
+    where regUUID = #{reguuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

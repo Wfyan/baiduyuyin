@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.PbAudioMapper" >
+  <resultMap id="BaseResultMap" type="com.edu.baiedu.dao.PbAudio" >
+    <id column="auSetUUID" property="ausetuuid" jdbcType="VARCHAR" />
+    <result column="userUUID" property="useruuid" jdbcType="VARCHAR" />
+    <result column="auSetSpd" property="ausetspd" jdbcType="INTEGER" />
+    <result column="auSetPit" property="ausetpit" jdbcType="INTEGER" />
+    <result column="auSetVol" property="ausetvol" jdbcType="INTEGER" />
+    <result column="auSetVoiPer" property="ausetvoiper" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    auSetUUID, userUUID, auSetSpd, auSetPit, auSetVol, auSetVoiPer
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.edu.baiedu.dao.PbAudioExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from pb_audio
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pb_audio
+    where auSetUUID = #{ausetuuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pb_audio
+    where auSetUUID = #{ausetuuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.baiedu.dao.PbAudioExample" >
+    delete from pb_audio
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.baiedu.dao.PbAudio" >
+    insert into pb_audio (auSetUUID, userUUID, auSetSpd, 
+      auSetPit, auSetVol, auSetVoiPer
+      )
+    values (#{ausetuuid,jdbcType=VARCHAR}, #{useruuid,jdbcType=VARCHAR}, #{ausetspd,jdbcType=INTEGER}, 
+      #{ausetpit,jdbcType=INTEGER}, #{ausetvol,jdbcType=INTEGER}, #{ausetvoiper,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.baiedu.dao.PbAudio" >
+    insert into pb_audio
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="ausetuuid != null" >
+        auSetUUID,
+      </if>
+      <if test="useruuid != null" >
+        userUUID,
+      </if>
+      <if test="ausetspd != null" >
+        auSetSpd,
+      </if>
+      <if test="ausetpit != null" >
+        auSetPit,
+      </if>
+      <if test="ausetvol != null" >
+        auSetVol,
+      </if>
+      <if test="ausetvoiper != null" >
+        auSetVoiPer,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="ausetuuid != null" >
+        #{ausetuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="useruuid != null" >
+        #{useruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="ausetspd != null" >
+        #{ausetspd,jdbcType=INTEGER},
+      </if>
+      <if test="ausetpit != null" >
+        #{ausetpit,jdbcType=INTEGER},
+      </if>
+      <if test="ausetvol != null" >
+        #{ausetvol,jdbcType=INTEGER},
+      </if>
+      <if test="ausetvoiper != null" >
+        #{ausetvoiper,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.baiedu.dao.PbAudioExample" resultType="java.lang.Integer" >
+    select count(*) from pb_audio
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pb_audio
+    <set >
+      <if test="record.ausetuuid != null" >
+        auSetUUID = #{record.ausetuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useruuid != null" >
+        userUUID = #{record.useruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ausetspd != null" >
+        auSetSpd = #{record.ausetspd,jdbcType=INTEGER},
+      </if>
+      <if test="record.ausetpit != null" >
+        auSetPit = #{record.ausetpit,jdbcType=INTEGER},
+      </if>
+      <if test="record.ausetvol != null" >
+        auSetVol = #{record.ausetvol,jdbcType=INTEGER},
+      </if>
+      <if test="record.ausetvoiper != null" >
+        auSetVoiPer = #{record.ausetvoiper,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pb_audio
+    set auSetUUID = #{record.ausetuuid,jdbcType=VARCHAR},
+      userUUID = #{record.useruuid,jdbcType=VARCHAR},
+      auSetSpd = #{record.ausetspd,jdbcType=INTEGER},
+      auSetPit = #{record.ausetpit,jdbcType=INTEGER},
+      auSetVol = #{record.ausetvol,jdbcType=INTEGER},
+      auSetVoiPer = #{record.ausetvoiper,jdbcType=INTEGER}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.baiedu.dao.PbAudio" >
+    update pb_audio
+    <set >
+      <if test="useruuid != null" >
+        userUUID = #{useruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="ausetspd != null" >
+        auSetSpd = #{ausetspd,jdbcType=INTEGER},
+      </if>
+      <if test="ausetpit != null" >
+        auSetPit = #{ausetpit,jdbcType=INTEGER},
+      </if>
+      <if test="ausetvol != null" >
+        auSetVol = #{ausetvol,jdbcType=INTEGER},
+      </if>
+      <if test="ausetvoiper != null" >
+        auSetVoiPer = #{ausetvoiper,jdbcType=INTEGER},
+      </if>
+    </set>
+    where auSetUUID = #{ausetuuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.baiedu.dao.PbAudio" >
+    update pb_audio
+    set userUUID = #{useruuid,jdbcType=VARCHAR},
+      auSetSpd = #{ausetspd,jdbcType=INTEGER},
+      auSetPit = #{ausetpit,jdbcType=INTEGER},
+      auSetVol = #{ausetvol,jdbcType=INTEGER},
+      auSetVoiPer = #{ausetvoiper,jdbcType=INTEGER}
+    where auSetUUID = #{ausetuuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

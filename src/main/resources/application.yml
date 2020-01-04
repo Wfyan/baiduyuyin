@@ -1,0 +1,48 @@
+#application.yml注意事项
+#不同等级用冒号隔开
+#次等级的前面是空格，不能用制表符
+#冒号和值之间需要一个空格
+
+#配置生产环境和开发环境，可以使用---（三个减号）分开配置
+spring:
+  profiles:
+    #激活开发环境
+    active: dev
+---
+
+spring:
+  profiles: dev
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://106.15.250.119:3306/post_bar?useSSL=false&useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 201611701127
+  jpa:
+    database: MySQL
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+  resources:
+    static-locations: classpath:postbar/
+  mvc:
+    static-path-pattern: /**
+
+server:
+  port: 8080
+  servlet:
+    context-path: /postbar
+mybatis:
+  #pojo扫描包
+  type-aliases-package: com.edu.baiedu.repository
+  #加载mybatis映射文件
+  #mapper-locations: classpath:mapper/*Mapper.xml
+
+---
+
+spring:
+  profiles: pro
+server:
+  port: 8088
+
+#springboot

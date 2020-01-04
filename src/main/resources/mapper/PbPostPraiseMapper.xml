@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.PbPostPraiseMapper" >
+  <resultMap id="BaseResultMap" type="com.edu.baiedu.dao.PbPostPraise" >
+    <id column="poPrUUID" property="popruuid" jdbcType="VARCHAR" />
+    <result column="postUUID" property="postuuid" jdbcType="VARCHAR" />
+    <result column="userUUID" property="useruuid" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    poPrUUID, postUUID, userUUID
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.edu.baiedu.dao.PbPostPraiseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from pb_post_praise
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from pb_post_praise
+    where poPrUUID = #{popruuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pb_post_praise
+    where poPrUUID = #{popruuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.baiedu.dao.PbPostPraiseExample" >
+    delete from pb_post_praise
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.baiedu.dao.PbPostPraise" >
+    insert into pb_post_praise (poPrUUID, postUUID, userUUID
+      )
+    values (#{popruuid,jdbcType=VARCHAR}, #{postuuid,jdbcType=VARCHAR}, #{useruuid,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.baiedu.dao.PbPostPraise" >
+    insert into pb_post_praise
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="popruuid != null" >
+        poPrUUID,
+      </if>
+      <if test="postuuid != null" >
+        postUUID,
+      </if>
+      <if test="useruuid != null" >
+        userUUID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="popruuid != null" >
+        #{popruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="postuuid != null" >
+        #{postuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="useruuid != null" >
+        #{useruuid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.baiedu.dao.PbPostPraiseExample" resultType="java.lang.Integer" >
+    select count(*) from pb_post_praise
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pb_post_praise
+    <set >
+      <if test="record.popruuid != null" >
+        poPrUUID = #{record.popruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postuuid != null" >
+        postUUID = #{record.postuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useruuid != null" >
+        userUUID = #{record.useruuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pb_post_praise
+    set poPrUUID = #{record.popruuid,jdbcType=VARCHAR},
+      postUUID = #{record.postuuid,jdbcType=VARCHAR},
+      userUUID = #{record.useruuid,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.baiedu.dao.PbPostPraise" >
+    update pb_post_praise
+    <set >
+      <if test="postuuid != null" >
+        postUUID = #{postuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="useruuid != null" >
+        userUUID = #{useruuid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where poPrUUID = #{popruuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.baiedu.dao.PbPostPraise" >
+    update pb_post_praise
+    set postUUID = #{postuuid,jdbcType=VARCHAR},
+      userUUID = #{useruuid,jdbcType=VARCHAR}
+    where poPrUUID = #{popruuid,jdbcType=VARCHAR}
+  </update>
+</mapper>

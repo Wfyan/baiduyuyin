@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.PbAppMapper" >
+  <resultMap id="BaseResultMap" type="com.edu.baiedu.dao.PbApp" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="appID" property="appid" jdbcType="VARCHAR" />
+    <result column="apiKey" property="apikey" jdbcType="VARCHAR" />
+    <result column="secretKey" property="secretkey" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, appID, apiKey, secretKey
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.edu.baiedu.dao.PbAppExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from pb_app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from pb_app
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from pb_app
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.baiedu.dao.PbAppExample" >
+    delete from pb_app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.baiedu.dao.PbApp" >
+    insert into pb_app (id, appID, apiKey, 
+      secretKey)
+    values (#{id,jdbcType=INTEGER}, #{appid,jdbcType=VARCHAR}, #{apikey,jdbcType=VARCHAR}, 
+      #{secretkey,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.baiedu.dao.PbApp" >
+    insert into pb_app
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="appid != null" >
+        appID,
+      </if>
+      <if test="apikey != null" >
+        apiKey,
+      </if>
+      <if test="secretkey != null" >
+        secretKey,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="appid != null" >
+        #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="apikey != null" >
+        #{apikey,jdbcType=VARCHAR},
+      </if>
+      <if test="secretkey != null" >
+        #{secretkey,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.baiedu.dao.PbAppExample" resultType="java.lang.Integer" >
+    select count(*) from pb_app
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pb_app
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.appid != null" >
+        appID = #{record.appid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.apikey != null" >
+        apiKey = #{record.apikey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.secretkey != null" >
+        secretKey = #{record.secretkey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pb_app
+    set id = #{record.id,jdbcType=INTEGER},
+      appID = #{record.appid,jdbcType=VARCHAR},
+      apiKey = #{record.apikey,jdbcType=VARCHAR},
+      secretKey = #{record.secretkey,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.baiedu.dao.PbApp" >
+    update pb_app
+    <set >
+      <if test="appid != null" >
+        appID = #{appid,jdbcType=VARCHAR},
+      </if>
+      <if test="apikey != null" >
+        apiKey = #{apikey,jdbcType=VARCHAR},
+      </if>
+      <if test="secretkey != null" >
+        secretKey = #{secretkey,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.baiedu.dao.PbApp" >
+    update pb_app
+    set appID = #{appid,jdbcType=VARCHAR},
+      apiKey = #{apikey,jdbcType=VARCHAR},
+      secretKey = #{secretkey,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mapper.PbCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.edu.baiedu.dao.PbComment" >
+    <id column="cmUUID" property="cmuuid" jdbcType="VARCHAR" />
+    <result column="postUUID" property="postuuid" jdbcType="VARCHAR" />
+    <result column="userUUID" property="useruuid" jdbcType="VARCHAR" />
+    <result column="cmAudio" property="cmaudio" jdbcType="VARCHAR" />
+    <result column="cmTime" property="cmtime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.edu.baiedu.dao.PbComment" extends="BaseResultMap" >
+    <result column="cmText" property="cmtext" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    cmUUID, postUUID, userUUID, cmAudio, cmTime
+  </sql>
+  <sql id="Blob_Column_List" >
+    cmText
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.edu.baiedu.dao.PbCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pb_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.edu.baiedu.dao.PbCommentExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from pb_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from pb_comment
+    where cmUUID = #{cmuuid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from pb_comment
+    where cmUUID = #{cmuuid,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.baiedu.dao.PbCommentExample" >
+    delete from pb_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.baiedu.dao.PbComment" >
+    insert into pb_comment (cmUUID, postUUID, userUUID, 
+      cmAudio, cmTime, cmText
+      )
+    values (#{cmuuid,jdbcType=VARCHAR}, #{postuuid,jdbcType=VARCHAR}, #{useruuid,jdbcType=VARCHAR}, 
+      #{cmaudio,jdbcType=VARCHAR}, #{cmtime,jdbcType=TIMESTAMP}, #{cmtext,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.baiedu.dao.PbComment" >
+    insert into pb_comment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="cmuuid != null" >
+        cmUUID,
+      </if>
+      <if test="postuuid != null" >
+        postUUID,
+      </if>
+      <if test="useruuid != null" >
+        userUUID,
+      </if>
+      <if test="cmaudio != null" >
+        cmAudio,
+      </if>
+      <if test="cmtime != null" >
+        cmTime,
+      </if>
+      <if test="cmtext != null" >
+        cmText,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="cmuuid != null" >
+        #{cmuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="postuuid != null" >
+        #{postuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="useruuid != null" >
+        #{useruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="cmaudio != null" >
+        #{cmaudio,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtime != null" >
+        #{cmtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cmtext != null" >
+        #{cmtext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.baiedu.dao.PbCommentExample" resultType="java.lang.Integer" >
+    select count(*) from pb_comment
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update pb_comment
+    <set >
+      <if test="record.cmuuid != null" >
+        cmUUID = #{record.cmuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.postuuid != null" >
+        postUUID = #{record.postuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.useruuid != null" >
+        userUUID = #{record.useruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmaudio != null" >
+        cmAudio = #{record.cmaudio,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cmtime != null" >
+        cmTime = #{record.cmtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.cmtext != null" >
+        cmText = #{record.cmtext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update pb_comment
+    set cmUUID = #{record.cmuuid,jdbcType=VARCHAR},
+      postUUID = #{record.postuuid,jdbcType=VARCHAR},
+      userUUID = #{record.useruuid,jdbcType=VARCHAR},
+      cmAudio = #{record.cmaudio,jdbcType=VARCHAR},
+      cmTime = #{record.cmtime,jdbcType=TIMESTAMP},
+      cmText = #{record.cmtext,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update pb_comment
+    set cmUUID = #{record.cmuuid,jdbcType=VARCHAR},
+      postUUID = #{record.postuuid,jdbcType=VARCHAR},
+      userUUID = #{record.useruuid,jdbcType=VARCHAR},
+      cmAudio = #{record.cmaudio,jdbcType=VARCHAR},
+      cmTime = #{record.cmtime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.baiedu.dao.PbComment" >
+    update pb_comment
+    <set >
+      <if test="postuuid != null" >
+        postUUID = #{postuuid,jdbcType=VARCHAR},
+      </if>
+      <if test="useruuid != null" >
+        userUUID = #{useruuid,jdbcType=VARCHAR},
+      </if>
+      <if test="cmaudio != null" >
+        cmAudio = #{cmaudio,jdbcType=VARCHAR},
+      </if>
+      <if test="cmtime != null" >
+        cmTime = #{cmtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="cmtext != null" >
+        cmText = #{cmtext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where cmUUID = #{cmuuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.edu.baiedu.dao.PbComment" >
+    update pb_comment
+    set postUUID = #{postuuid,jdbcType=VARCHAR},
+      userUUID = #{useruuid,jdbcType=VARCHAR},
+      cmAudio = #{cmaudio,jdbcType=VARCHAR},
+      cmTime = #{cmtime,jdbcType=TIMESTAMP},
+      cmText = #{cmtext,jdbcType=LONGVARCHAR}
+    where cmUUID = #{cmuuid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.baiedu.dao.PbComment" >
+    update pb_comment
+    set postUUID = #{postuuid,jdbcType=VARCHAR},
+      userUUID = #{useruuid,jdbcType=VARCHAR},
+      cmAudio = #{cmaudio,jdbcType=VARCHAR},
+      cmTime = #{cmtime,jdbcType=TIMESTAMP}
+    where cmUUID = #{cmuuid,jdbcType=VARCHAR}
+  </update>
+</mapper>
