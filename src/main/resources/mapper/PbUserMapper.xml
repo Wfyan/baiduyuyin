@@ -228,4 +228,23 @@
     </foreach>
   </delete>
 
+  <select id="selectUserNumByUserName" resultType="java.lang.Integer">
+    SELECT count(*) FROM pb_user WHERE userName=#{userName}
+  </select>
+
+  <select id="selectUserByUserNameAndPassword" resultType="com.edu.baiedu.model.UserDto">
+    SELECT * FROM pb_user WHERE userName=#{userName} and password=#{password}
+  </select>
+
+  <select id="selectUserByUserUUID" resultType="com.edu.baiedu.model.UserDto">
+    SELECT * FROM pb_user WHERE userUUID=#{userUUID}
+  </select>
+
+  <select id="selectUserAllNum" resultType="java.lang.Integer">
+    SELECT count(*) FROM pb_user  WHERE
+    <if test='userName!=null and userName != "" '>
+     userName LIKE CONCAT('%',#{userName},'%')  AND
+    </if>
+     userUUID != #{userUUID}
+  </select>
 </mapper>

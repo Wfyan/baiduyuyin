@@ -264,7 +264,7 @@
         regTime = #{regTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where regUUID = #{regUUID,jdbcType=VARCHAR}
+    where userUUID = #{userUUID,jdbcType=VARCHAR}
   </update>
 
   <update id="upDateRegisterByRegUUID" parameterType="com.edu.baiedu.model.RegisterDto" >
@@ -281,5 +281,31 @@
       #{item}
     </foreach>
   </delete>
+
+  <select id="selectRegister" resultType="com.edu.baiedu.model.RegisterDto">
+    SELECT * FROM pb_register WHERE userUUID=#{userUUID}
+  </select>
+
+  <select id="selectRegisterAndUserName" resultType="com.edu.baiedu.model.RegisterDto">
+    SELECT a.regUUID,a.regAge,a.regEmial,a.regSex,a.regUUID,a.userUUID,b.userName
+    FROM pb_register a,pb_user b
+    WHERE a.userUUID=b.userUUID AND a.userUUID=#{userUUID}
+  </select>
+
+  <select id="selectRegPhotoByUserUUID" resultType="java.lang.String">
+    SELECT regPhoto FROM pb_register WHERE userUUID=#{userUUID}
+  </select>
+
+  <select id="selectRegList" resultType="com.edu.baiedu.model.RegisterDto">
+    SELECT b.regUUID,b.userUUID,b.regSex,b.regAge,b.regEmial,b.regTime,a.userName,a.loginTime,a.admin
+     FROM pb_register b,pb_user a
+     WHERE a.userUUID=b.userUUID
+    <if test='userName!=null and userName != "" '>
+    AND a.userName LIKE CONCAT('%',#{userName},'%')
+    </if>
+    AND a.userUUID != #{userUUID}
+    ORDER BY b.regTime DESC
+    LIMIT #{startNo},#{pageSize}
+  </select>
 
 </mapper>

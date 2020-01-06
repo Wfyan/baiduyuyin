@@ -180,7 +180,7 @@
     where poPrUUID = #{popruuid,jdbcType=VARCHAR}
   </update>
 
-  <delete id="deletePost" parameterType="java.lang.String">
+  <delete id="deletePostPraise" parameterType="java.lang.String">
     delete from pb_post_praise
     where postUUID IN
     <foreach collection="postUUID" index='index' item="item" open="(" separator="," close=")">
@@ -188,7 +188,7 @@
     </foreach>
   </delete>
 
-  <delete id="deletePostByUserUUID" parameterType="java.lang.String">
+  <delete id="deletePostPraiseByUserUUID" parameterType="java.lang.String">
     delete from pb_post_praise
     where userUUID IN
     <foreach collection="userUUID" index='index' item="item" open="(" separator="," close=")">

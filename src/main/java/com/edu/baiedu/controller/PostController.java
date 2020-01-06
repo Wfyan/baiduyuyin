@@ -144,7 +144,7 @@ public class PostController extends BasicController{
 			TtsResponse res=audioSynthesis.synthesis(text, spd, pit, vol, per);
 			byte[] data = res.getData();
 			
-			String path=request.getSession().getServletContext().getRealPath("/")+"audio\\" ;
+			String path=request.getSession().getServletContext().getRealPath("/audio/");
 	       
 	        String urlPath=request.getContextPath() + "/audio/"+postUUID+".mp3";
 	        
