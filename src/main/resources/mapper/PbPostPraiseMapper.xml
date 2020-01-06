@@ -196,4 +196,13 @@
     </foreach>
   </delete>
 
+  <select id="selectPraiseByPostUUID" resultType="com.edu.baiedu.model.PostPraiseDto">
+    select * from pb_post_praise
+    where postUUID=#{postUUID}
+  </select>
+
+  <select id="selectPraiseNum" resultType="java.lang.Integer">
+    select count(*) from pb_post_praise
+    where postUUID=#{postUUID}
+  </select>
 </mapper>

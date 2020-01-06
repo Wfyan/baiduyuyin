@@ -294,4 +294,42 @@
     </foreach>
   </delete>
 
+  <select id="selectCommentHotsByPostUUID" resultType="com.edu.baiedu.model.CommentDto">
+    select a.cmUUID,a.postUUID,a.userUUID,a.cmText,a.cmAudio,a.cmTime,COUNT(b.cmPrUUID) cmPrNum,c.userName,d.regTime,d.regPhoto
+    from post_bar.pb_comment a,post_bar.pb_comment_praise b,post_bar.pb_user c,post_bar.pb_register d
+    where a.postUUID=#{postUUID} and c.userUUID=a.userUUID and d.userUUID=a.userUUID and a.cmUUID=b.cmUUID
+    group by a.cmUUID,d.regTime,d.regPhoto
+    order by cmPrNum DESC
+    limit 0,5
+  </select>
+
+  <select id="selectAllCommentByPostUUID" resultType="com.edu.baiedu.model.CommentDto">
+    select a.cmUUID,a.postUUID,a.userUUID,a.cmText,a.cmAudio,a.cmTime,c.userName,d.regTime,d.regPhoto,IFNULL(t.cmPrNum,0) cmPrNum
+    from (post_bar.pb_comment a,post_bar.pb_user c,post_bar.pb_register d)
+    left join(select count(*) cmPrNum,b.cmUUID FROM post_bar.pb_comment_praise b GROUP BY b.cmUUID ) t
+    on t.cmUUID=a.cmUUID
+    where a.postUUID=#{postUUID} and c.userUUID=a.userUUID and d.userUUID=a.userUUID
+    group by a.cmUUID,d.regTime,d.regPhoto,t.cmPrNum
+    order by a.cmTime DESC
+  </select>
+
+  <select id="selectMyCommentByUserUUID" resultType="com.edu.baiedu.model.CommentDto">
+    select a.cmUUID,a.postUUID,a.userUUID,a.cmText,a.cmAudio,a.cmTime,b.postTitle
+    from pb_comment a,pb_post b
+    where a.postUUID=b.postUUID and a.userUUID=#{userUUID}
+    order by a.cmTime DESC
+    limit #{startNo},#{pageSize}
+  </select>
+
+  <select id="selectMyCommentNumByUserUUID" resultType="java.lang.Integer">
+    select count(*)
+    from pb_comment
+    where userUUID=#{userUUID}
+  </select>
+
+  <select id="selectCmTextByCmUUID" resultType="java.lang.String">
+    select cmText
+    from pb_comment
+    where cmUUID=#{cmUUID}
+  </select>
 </mapper>

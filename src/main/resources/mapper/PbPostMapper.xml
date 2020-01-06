@@ -287,6 +287,12 @@
     where postUUID = #{postuuid,jdbcType=VARCHAR}
   </update>
 
+  <update id="updatePostPageviews" >
+    update pb_post
+    set postPageviews=#{postPageviews}
+    where postUUID=#{postUUID}
+  </update>
+
   <delete id="deletePost" parameterType="java.lang.String">
     delete from pb_post
     where postUUID IN
@@ -303,4 +309,45 @@
     </foreach>
   </delete>
 
+  <select id="selectPostAllNum" resultType="java.lang.Integer">
+    select count(*)
+    from pb_post
+    <if test='postTitle!=null and postTitle != "" '>
+      where postTitle LIKE CONCAT('%',#{postTitle},'%')
+    </if>
+    <if test='(postTitle!=null and postTitle != "") and (userUUID!=null and userUUID != "") '>
+      AND userUUID=#{userUUID}
+    </if>
+    <if test='(postTitle==null or postTitle == "") and (userUUID!=null and userUUID != "") '>
+      where userUUID=#{userUUID}
+    </if>
+  </select>
+
+  <select id="selectPostList" resultType="com.edu.baiedu.model.PostDto">
+    select a.postUUID,c.userName,IFNULL(f.cmTime,'') as cmTime,IFNULL(f.commentNum,0) as commentNum,a.userUUID,a.postTitle,a.postPageviews,a.postTime
+    from (pb_post as a
+    left join (select b.userName,b.userUUID FROM pb_user as b ) as c
+    on a.userUUID=c.userUUID
+    )
+    left join (select count(*) AS commentNum,e.postUUID,max(e.cmTime) AS cmTime
+    from post_bar.pb_comment as e
+    group by e.postUUID ) AS f
+    on f.postUUID=a.postUUID
+    <if test='postTitle!=null and postTitle != "" '>
+      where a.postTitle LIKE CONCAT('%',#{postTitle},'%')
+    </if>
+    <if test='(postTitle==null or postTitle == "") and (userUUID!=null and userUUID != "") '>
+      where a.userUUID=#{userUUID}
+    </if>
+    <if test='(postTitle!=null and postTitle != "") and (userUUID!=null and userUUID != "") '>
+      AND a.userUUID=#{userUUID}
+    </if>
+    order by f.cmTime DESC
+    limit #{startNo},#{pageSize}
+  </select>
+
+  <select id="selectPostByPostUUID" resultType="com.edu.baiedu.model.PostDto">
+    select * from pb_post as a
+    where postUUID=#{postUUID}
+  </select>
 </mapper>

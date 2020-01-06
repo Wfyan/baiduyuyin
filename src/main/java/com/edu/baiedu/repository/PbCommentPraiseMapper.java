@@ -41,12 +41,7 @@ public interface PbCommentPraiseMapper {
 	void deleteCommentPraiseByUserUUID(@Param("userUUID") String[] userUUID);
 
 	void deleteCommentPraiseByCmUUID(@Param("cmUUID") String[] cmUUID);
-	
-	@Select("<script>SELECT COUNT(*) FROM pb_comment_praise WHERE"
-			+ "<if test='userUUID!=null and userUUID != \"\" '>"
-			+ " userUUID=#{userUUID} AND "
-			+ "</if>"
-			+ " cmUUID=#{cmUUID} AND postUUID=#{postUUID}</script>")
+
 	int selectCommentNumByParameter(@Param("postUUID") String postUUID, @Param("cmUUID") String cmUUID, @Param("userUUID") String userUUID);
 
 /*	@Insert("INSERT INTO pb_comment_praise (cmPrUUID,postUUID,userUUID,cmUUID) VALUES (#{cmPrUUID},#{postUUID},#{userUUID},#{cmUUID})")

@@ -37,13 +37,11 @@ public interface PbPostPraiseMapper {
 	void deletePostPraise(@Param("postUUID") String[] postUUID);
 
 	void deletePostPraiseByUserUUID(@Param("userUUID") String[] userUUID);
-	
-	@Select("SELECT * FROM pb_post_praise WHERE postUUID=#{postUUID}")
+
 	List<PostPraiseDto> selectPraiseByPostUUID(@Param("postUUID") String postUUID);
 	
 /*	@Insert("INSERT INTO pb_post_praise (poPrUUID,postUUID,userUUID) VALUES (#{poPrUUID},#{postUUID},#{userUUID})")
 	void insertPraise(PostPraiseDto pbPostPraiseDto);*/
-	
-	@Select("SELECT count(*) FROM pb_post_praise WHERE postUUID=#{postUUID}")
+
 	int selectPraiseNum(@Param("postUUID") String postUUID);
 }

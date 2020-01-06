@@ -218,5 +218,14 @@
       #{item}
     </foreach>
   </delete>
-  
+
+  <select id="selectCommentNumByParameter" resultType="java.lang.Integer">
+    select count(*)
+    from pb_comment_praise
+    where
+    <if test='userUUID!=null and userUUID != "" '>
+      userUUID=#{userUUID} AND
+    </if>
+    cmUUID=#{cmUUID} AND postUUID=#{postUUID}
+  </select>
 </mapper>

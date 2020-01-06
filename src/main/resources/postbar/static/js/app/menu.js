@@ -619,7 +619,7 @@ function loginOut(){
         },
         success: function (json) {
    
-        	window.location.replace("/postbar/");
+        	window.location.replace("/postbar/chinasofti/login/login.html");
 
         }
     });
